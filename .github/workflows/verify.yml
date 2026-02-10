@@ -1,0 +1,25 @@
+# Quick check that the repo and Actions are connected. Runs on every push.
+# No AWS or secrets required.
+
+name: Verify
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check site files
+        run: |
+          echo "Verifying static site structure..."
+          test -f index.html || (echo "Missing index.html" && exit 1)
+          test -d css || (echo "Missing css/" && exit 1)
+          test -d js || (echo "Missing js/" && exit 1)
+          echo "Required files present."
