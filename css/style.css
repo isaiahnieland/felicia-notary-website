@@ -1,4 +1,4 @@
-/* Felicia Nieland Notary — beta */
+/* Felicia Nieland Notary — responsive for mobile & desktop */
 :root {
   --color-bg: #fafafa;
   --color-text: #1a1a1a;
@@ -15,12 +15,17 @@
   --space-2xl: 3rem;
   --max-width: 720px;
   --radius: 8px;
+  --touch-min: 44px; /* minimum tap target size */
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -30,6 +35,7 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background: var(--color-bg);
+  min-width: 280px;
 }
 
 main {
@@ -44,6 +50,9 @@ main {
   background: #fff;
   border-bottom: 1px solid var(--color-border);
   padding: var(--space-md) var(--space-lg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .site-header .wrap {
@@ -58,7 +67,7 @@ main {
 
 .site-title {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: clamp(1.125rem, 2.5vw, 1.25rem);
   font-weight: 600;
 }
 
@@ -79,7 +88,10 @@ main {
 .site-nav a {
   color: var(--color-muted);
   text-decoration: none;
-  padding: var(--space-xs) var(--space-sm);
+  padding: 0 var(--space-sm);
+  min-height: var(--touch-min);
+  display: inline-flex;
+  align-items: center;
   border-radius: var(--radius);
 }
 
@@ -87,15 +99,15 @@ main {
   color: var(--color-accent);
 }
 
-/* Typography */
+/* Typography — scale for mobile and desktop */
 h1 {
-  font-size: 1.75rem;
+  font-size: clamp(1.5rem, 4vw, 1.75rem);
   margin-top: 0;
   margin-bottom: var(--space-lg);
 }
 
 h2 {
-  font-size: 1.25rem;
+  font-size: clamp(1.125rem, 2.5vw, 1.25rem);
   margin-top: var(--space-xl);
   margin-bottom: var(--space-md);
 }
@@ -111,11 +123,15 @@ p {
   background: var(--color-accent);
   color: #fff;
   padding: var(--space-md) var(--space-xl);
+  min-height: var(--touch-min);
+  line-height: 1.25;
+  box-sizing: border-box;
   border-radius: var(--radius);
   text-decoration: none;
   font-weight: 600;
   margin-top: var(--space-md);
   margin-bottom: var(--space-md);
+  text-align: center;
 }
 
 .cta-book:hover {
@@ -134,11 +150,17 @@ ul.faq-list li {
   margin-bottom: var(--space-sm);
 }
 
-/* Pricing table */
+/* Pricing table — responsive */
+.pricing-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--space-lg);
+}
+
 .pricing-table {
   width: 100%;
+  min-width: 260px;
   border-collapse: collapse;
-  margin-bottom: var(--space-lg);
 }
 
 .pricing-table th,
@@ -188,14 +210,56 @@ ul.faq-list li {
   margin: 0;
 }
 
-/* Mobile: larger tap targets */
+/* Tablet and down — more breathing room */
+@media (max-width: 768px) {
+  main {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .site-header {
+    padding: var(--space-md) var(--space-md);
+  }
+}
+
+/* Mobile — larger tap targets, stacked nav when needed */
 @media (max-width: 640px) {
+  .site-header .wrap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-nav {
+    width: 100%;
+  }
+
   .site-nav a {
-    padding: var(--space-sm) var(--space-md);
+    padding: 0 var(--space-md);
+    min-height: var(--touch-min);
   }
 
   .cta-book {
-    padding: var(--space-lg) var(--space-xl);
+    padding: var(--space-md) var(--space-xl);
+    min-height: var(--touch-min);
     font-size: 1.0625rem;
+  }
+
+  .pricing-table th,
+  .pricing-table td {
+    padding: var(--space-md);
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  body {
+    font-size: 0.9375rem;
+  }
+
+  main {
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .site-header {
+    padding: var(--space-sm) var(--space-sm);
   }
 }

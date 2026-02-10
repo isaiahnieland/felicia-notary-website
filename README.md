@@ -1,6 +1,6 @@
 # Felicia Nieland — Mobile Notary (website)
 
-Static website for Felicia’s mobile notary business. **Clay County, Missouri.** Deploys to AWS (S3 + CloudFront) via GitHub Actions.
+Static website for Felicia’s mobile notary business. **Clay County, Missouri.** Deploys to **AWS S3** via GitHub Actions. Hosting is S3-only for now; CloudFront can be added later for a custom domain and HTTPS.
 
 ## Run locally
 
@@ -52,7 +52,7 @@ gh repo create felicia-notary-website --public --source=. --remote=origin --push
 
 **4. Link GitHub Actions to AWS** — See [Link GitHub Actions to AWS](#link-github-actions-to-aws) below.
 
-After each push to `main`, the workflow will sync the site to S3 and invalidate CloudFront.
+After each push to `main`, the workflow will sync the site to S3 (and optionally invalidate CloudFront if you add it later).
 
 ## Link GitHub Actions to AWS
 
@@ -106,22 +106,17 @@ After this, each push to `main` will run the **Deploy to AWS** workflow and sync
 
 ## AWS setup (one-time)
 
-You need: **S3 bucket**, **CloudFront distribution**, **ACM certificate** (when you have a domain), and **IAM user** for GitHub Actions.
+You need: **S3 bucket** and **IAM user** for GitHub Actions. CloudFront and a custom domain are optional and can be added later.
 
-### 1. S3 bucket
+### 1. S3 bucket (hosting for now)
 
 - Create a bucket (e.g. `notary-website-prod`).
-- Turn on **Block public access** (all four options). The site will be served only via CloudFront.
-- Do **not** enable “Static website hosting” if you use CloudFront with OAC (recommended).
+- **To view the site via S3 only:** In the bucket go to **Properties → Static website hosting → Edit**. Enable it, set **Index document** to `index.html`, **Error document** to `index.html` (or leave blank). Save. Use the **Bucket website endpoint** URL (e.g. `http://notary-website-prod.s3-website-us-east-1.amazonaws.com`) to open the site. The bucket must allow public read for this to work: in **Permissions** add a bucket policy that allows `s3:GetObject` for the bucket (AWS has a template for “Public read” under Static website hosting).
+- **If you add CloudFront later:** You can turn off public access and serve only via CloudFront with OAC; until then, static website hosting + public read is the simplest way to have a working URL.
 
-### 2. CloudFront distribution
+### 2. CloudFront (optional — add later)
 
-- Origin: your S3 bucket.
-- Use **Origin Access Control (OAC)** so CloudFront can read from the bucket (no public bucket policy).
-- Update the bucket policy to allow the CloudFront service principal (AWS will show the policy when you create OAC).
-- Default root object: `index.html`.
-- Error pages: 404 → `/index.html` (or `/404.html` if you add one) so client-side-style routes work if you add them later.
-- After the domain is chosen: add **Alternate domain names (CNAMEs)** and attach an **ACM certificate** (request the cert in **us-east-1**). Redirect HTTP → HTTPS.
+When you want a custom domain and HTTPS: create a CloudFront distribution with your S3 bucket as origin, use **Origin Access Control (OAC)**, set default root object to `index.html`, and add your domain + ACM certificate. Then set the repo variable `CLOUDFRONT_DISTRIBUTION_ID` so deploys invalidate the cache.
 
 ### 3. IAM user for GitHub Actions
 
@@ -132,7 +127,7 @@ Create an IAM user (no console login). Attach a policy that allows:
 
 Use this user’s access key and secret in GitHub repo secrets as above.
 
-### 4. Domain (TBD)
+### 4. Domain (optional — TBD)
 
 - **Domain name:** Placeholder until you decide (see `felicia-notary-business/MASTER-PLAN.md` for options).
 - When decided: register the domain (Route 53, Cloudflare, or Namecheap). Felicia pays ~$12–15/year.
