@@ -138,6 +138,111 @@ p {
   background: var(--color-accent-hover);
 }
 
+/* Home page — hero and CTA */
+.home-page .hero {
+  margin-bottom: var(--space-2xl);
+}
+
+.hero-tagline {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  margin: 0 0 var(--space-sm);
+}
+
+.home-page .hero h1 {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  line-height: 1.25;
+  margin-bottom: var(--space-md);
+}
+
+.hero-sub {
+  font-size: 1.0625rem;
+  color: var(--color-muted);
+  margin-bottom: var(--space-xl);
+  max-width: 36em;
+}
+
+.cta-block {
+  margin-top: var(--space-xl);
+}
+
+.cta-block .cta-book {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+}
+
+.cta-primary {
+  font-size: 1.125rem;
+  padding: var(--space-md) var(--space-2xl);
+}
+
+.cta-note {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.home-benefits {
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+  margin-bottom: var(--space-2xl);
+}
+
+.home-benefits h2 {
+  margin-top: 0;
+}
+
+.benefits-list {
+  list-style: none;
+  margin: 0 0 var(--space-lg);
+  padding: 0;
+}
+
+.benefits-list li {
+  padding-left: 1.5em;
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.benefits-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.home-benefits p a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.home-benefits p a:hover {
+  text-decoration: underline;
+}
+
+.home-cta-footer {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-md);
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.home-cta-footer p {
+  margin: 0 0 var(--space-md);
+  font-size: 1.0625rem;
+}
+
+.home-cta-footer .cta-book {
+  margin: 0;
+}
+
 /* Lists */
 ul.services-list,
 ul.faq-list {
@@ -241,6 +346,15 @@ ul.faq-list li {
     padding: var(--space-md) var(--space-xl);
     min-height: var(--touch-min);
     font-size: 1.0625rem;
+  }
+
+  .home-cta-footer {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .cta-primary {
+    font-size: 1rem;
+    padding: var(--space-md) var(--space-xl);
   }
 
   .pricing-table th,
