@@ -39,7 +39,7 @@ git commit -m "Initial commit: static notary site for Clay County MO"
 GitHub will show you commands; use these (replace `YOUR_USERNAME` with your GitHub username):
 
 ```bash
-git remote add origin https://github.com/YOUR_USERNAME/felicia-notary-website.git
+git remote add origin https://github.com/isaiahnieland/felicia-notary-website.git
 git branch -M main
 git push -u origin main
 ```
@@ -50,14 +50,59 @@ git push -u origin main
 gh repo create felicia-notary-website --public --source=. --remote=origin --push
 ```
 
-**4. Configure Actions (after first push)**
-
-In the repo: **Settings → Secrets and variables → Actions.**
-
-- **Secrets:** `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` (from your IAM user).
-- **Variables:** `S3_BUCKET` (e.g. `notary-website-prod`), `CLOUDFRONT_DISTRIBUTION_ID` (optional until CloudFront exists), `AWS_REGION` (optional, default `us-east-1`).
+**4. Link GitHub Actions to AWS** — See [Link GitHub Actions to AWS](#link-github-actions-to-aws) below.
 
 After each push to `main`, the workflow will sync the site to S3 and invalidate CloudFront.
+
+## Link GitHub Actions to AWS
+
+Do this after you have an S3 bucket (and optionally a CloudFront distribution). You’ll create an IAM user for GitHub, then add its keys and your bucket/distribution IDs to the repo.
+
+### 1. Create an IAM user for GitHub Actions
+
+1. In the AWS Console go to **IAM → Users → Create user**.
+2. **User name:** e.g. `github-actions-felicia-notary`. No console login.
+3. **Attach policies:** Create an inline policy (or a custom managed policy) with this JSON (replace `YOUR-CLOUDFRONT-DIST-ID` and `YOUR-ACCOUNT-ID` when you add CloudFront; if you don’t have CloudFront yet, remove the `cloudfront` block):
+
+//I choose not to do the inline access. I gave the user Amazons3fullAccess and CloudFrontFullAccess for now
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:PutObject", "s3:DeleteObject", "s3:ListBucket"],
+      "Resource": [
+        "arn:aws:s3:::notary-website-prod",
+        "arn:aws:s3:::notary-website-prod/*"
+      ]
+    }
+  ]
+}
+```
+
+4. Create the user.
+
+### 2. Create access keys for the IAM user
+
+1. Open the user → **Security credentials** tab.
+2. **Access keys** → **Create access key**.
+3. Use **Application running outside AWS** (or “Command Line Interface”).
+4. Copy the **Access key ID** and **Secret access key** (you won’t see the secret again).
+
+### 3. Add secrets and variables in GitHub
+
+1. Repo → **Settings → Secrets and variables → Actions**.
+2. **Secrets** tab → **New repository secret**:
+   - Name: `AWS_ACCESS_KEY_ID`, Value: the access key ID.
+   - Name: `AWS_SECRET_ACCESS_KEY`, Value: the secret access key.
+3. **Variables** tab → **New repository variable**:
+   - `S3_BUCKET` = `notary-website-prod` (your bucket name).
+   - `CLOUDFRONT_DISTRIBUTION_ID` = your CloudFront distribution ID (optional until you have CloudFront).
+   - `AWS_REGION` = e.g. `us-east-1` (optional; workflow defaults to `us-east-1`).
+
+After this, each push to `main` will run the **Deploy to AWS** workflow and sync the site to S3 (and invalidate CloudFront if `CLOUDFRONT_DISTRIBUTION_ID` is set).
 
 ## AWS setup (one-time)
 
