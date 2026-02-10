@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book an Appointment | Felicia Nieland — Mobile Notary</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1 class="site-title"><a href="index.html">Felicia Nieland — Notary</a></h1>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="book.html">Book</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Book an appointment</h1>
+    <p>Choose a date and time that works for you. I’m available <strong>weekends all day</strong> and <strong>weekdays after 5:00 PM</strong> in Clay County, Missouri. After you book, we’ll confirm the meeting location (library, coffee shop, or your office).</p>
+
+    <a href="#" id="calendly-link" class="cta-book">Book now — pick your time</a>
+    <p><small>You’ll be taken to my scheduling page to select an available slot. No phone tag.</small></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>Felicia Nieland — Mobile Notary | Clay County, Missouri</p>
+  </footer>
+  <script src="js/config.js"></script>
+  <script>
+    (function() {
+      var link = document.getElementById('calendly-link');
+      var url = typeof CALENDLY_BOOKING_URL !== 'undefined' && CALENDLY_BOOKING_URL ? CALENDLY_BOOKING_URL : '#';
+      link.href = url;
+      if (url === '#') link.setAttribute('aria-label', 'Calendly link to be added');
+    })();
+  </script>
+</body>
+</html>
