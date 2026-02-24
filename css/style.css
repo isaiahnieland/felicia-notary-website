@@ -1,13 +1,13 @@
-/* Felicia Nieland Notary — dark theme, ShipSoma-style layout */
+/* Notary By Felicia — light theme */
 :root {
-  --color-bg: #0e111a;
-  --color-bg-elevated: #161b26;
-  --color-bg-card: #1a2030;
-  --color-text: #f1f5f9;
-  --color-text-muted: #94a3b8;
-  --color-accent: #3b82f6;
-  --color-accent-hover: #2563eb;
-  --color-border: #2d3748;
+  --color-bg: #f8fafc;
+  --color-bg-elevated: #f1f5f9;
+  --color-bg-card: #ffffff;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-border: #e2e8f0;
   --font-sans: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -49,14 +49,15 @@ main {
   padding-bottom: var(--space-2xl);
 }
 
-/* Header — dark nav bar */
+/* Header */
 .site-header {
-  background: var(--color-bg);
+  background: var(--color-bg-card);
   border-bottom: 1px solid var(--color-border);
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-sm) var(--space-lg);
   position: sticky;
   top: 0;
   z-index: 10;
+  box-sizing: border-box;
 }
 
 .site-header .wrap {
@@ -67,6 +68,7 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
+  min-height: 64px;
 }
 
 .site-title {
@@ -78,6 +80,17 @@ main {
 .site-title a {
   color: var(--color-text);
   text-decoration: none;
+  display: block;
+  line-height: 0;
+}
+
+.site-logo {
+  height: 64px;
+  width: auto;
+  display: block;
+  vertical-align: middle;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .site-nav {
@@ -122,7 +135,7 @@ p {
   margin-bottom: var(--space-md);
 }
 
-/* Buttons — night mode, consistent across all pages */
+/* Buttons — consistent across all pages */
 .cta-book {
   display: inline-flex;
   align-items: center;
@@ -181,9 +194,7 @@ p {
   line-height: 1.2;
   margin-bottom: var(--space-lg);
   font-weight: 700;
-  max-width: 20ch;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: none;
 }
 
 .hero-highlight {
@@ -193,8 +204,8 @@ p {
 .hero-sub {
   font-size: 1.0625rem;
   color: var(--color-text-muted);
-  margin: 0 auto var(--space-xl);
-  max-width: 42ch;
+  margin: 0 0 var(--space-xl);
+  max-width: none;
   line-height: 1.65;
 }
 
@@ -273,15 +284,15 @@ p {
 }
 
 .card:hover {
-  border-color: rgba(59, 130, 246, 0.4);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
 .card-icon {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(59, 130, 246, 0.15);
+  background: rgba(37, 99, 235, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -442,6 +453,77 @@ main:not(.home-page) a:hover {
   line-height: 1.6;
 }
 
+.book-page .page-intro-sub {
+  text-align: center;
+  max-width: 42ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Book page — card and CTA */
+.book-content {
+  margin-bottom: var(--space-2xl);
+}
+
+.book-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.book-card h2 {
+  font-size: 1.25rem;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+.book-card h2:first-child {
+  margin-top: 0;
+}
+
+.book-card p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.book-availability,
+.book-steps {
+  margin: 0 0 var(--space-lg);
+  padding-left: 1.5rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.book-availability li,
+.book-steps li {
+  margin-bottom: var(--space-sm);
+}
+
+.book-availability strong,
+.book-steps strong {
+  color: var(--color-text);
+}
+
+.book-cta-block {
+  text-align: center;
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.book-cta-block .cta-book {
+  margin-bottom: var(--space-sm);
+}
+
+.book-cta-note {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
 /* Inner section spacing */
 .inner-section {
   margin-bottom: var(--space-3xl);
@@ -491,6 +573,17 @@ main:not(.home-page) a:hover {
 }
 
 /* Services table intro */
+.service-details-header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.service-details-header .services-table-intro {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+}
+
 .services-table-intro {
   color: var(--color-text-muted);
   margin-bottom: var(--space-md);
@@ -534,6 +627,17 @@ main:not(.home-page) a:hover {
 }
 
 /* Packages section */
+.packages-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.packages-header .packages-intro {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+}
+
 .packages-intro {
   color: var(--color-text-muted);
   margin-bottom: var(--space-xl);
@@ -559,7 +663,7 @@ main:not(.home-page) a:hover {
 
 .package-card.package-featured {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 1px var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 
 .package-badge {
@@ -625,6 +729,15 @@ main:not(.home-page) a:hover {
 .services-cta {
   margin-top: var(--space-2xl);
   margin-bottom: 0;
+}
+
+.services-cta-wrap {
+  text-align: center;
+  margin: var(--space-2xl) 0 var(--space-2xl);
+}
+
+.services-cta-wrap .cta-book {
+  margin: 0;
 }
 
 /* 3-column card grid (e.g. home page) */
@@ -754,6 +867,155 @@ ul.faq-list li {
   color: var(--color-text);
 }
 
+/* About page — photo placeholder + layout */
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+  margin-bottom: var(--space-2xl);
+}
+
+.about-photo,
+.about-photo-placeholder {
+  margin: 0;
+  aspect-ratio: 3 / 4;
+  max-width: 280px;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.about-photo {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-photo-placeholder {
+  background: var(--color-bg-card);
+  border: 1px dashed var(--color-border);
+}
+
+.about-photo-placeholder-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.about-photo-placeholder-text {
+  padding: var(--space-md);
+  text-align: center;
+}
+
+.about-photo-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-family-photo {
+  margin: 0 auto var(--space-2xl);
+  max-width: 560px;
+}
+
+.about-family-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+.about-family-photo figcaption {
+  margin-top: var(--space-sm);
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.about-content {
+  min-width: 0;
+}
+
+.about-content--full {
+  margin-bottom: var(--space-2xl);
+  color: #000;
+}
+
+.about-content--full p,
+.about-content--full .about-lead,
+.about-content--full .about-note {
+  color: #000;
+}
+
+.about-collage {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
+}
+
+.about-collage img {
+  width: 100%;
+  height: 420px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: var(--color-bg-elevated);
+}
+
+.about-son-note {
+  text-align: center;
+  color: var(--color-text-muted);
+  margin: var(--space-xl) 0 var(--space-lg);
+}
+
+.about-cta-wrap {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.about-cta-wrap .cta-book {
+  margin: 0;
+}
+
+.about-lead {
+  font-size: 1.0625rem;
+  margin-bottom: var(--space-lg);
+}
+
+.about-note {
+  margin-top: var(--space-xl);
+}
+
+@media (max-width: 640px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .about-photo,
+  .about-photo-placeholder {
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .about-collage img {
+    height: 320px;
+  }
+}
+
 /* Contact list */
 .contact-list {
   list-style: none;
@@ -856,7 +1118,8 @@ ul.faq-list li {
     padding: var(--space-lg) var(--space-md);
   }
 
-  .pricing-card {
+  .pricing-card,
+  .book-card {
     padding: var(--space-md);
   }
 }
