@@ -1,6 +1,6 @@
 # Felicia Nieland — Mobile Notary (website)
 
-Static website for Felicia’s mobile notary business. **Clay County, Missouri.** Deploys to **AWS S3** via GitHub Actions. Hosting is S3-only for now; CloudFront can be added later for a custom domain and HTTPS.
+Static website for Felicia’s mobile notary business. **Clay County, Missouri.** Deploys to **AWS S3** via GitHub Actions, with **CloudFront** and **notarybyfelicia.com** (Route 53) for HTTPS. See **[DEPLOY-DOMAIN.md](DEPLOY-DOMAIN.md)** for one-time setup of S3 + CloudFront + Route 53 for the custom domain.
 
 ## Run locally
 
@@ -127,12 +127,10 @@ Create an IAM user (no console login). Attach a policy that allows:
 
 Use this user’s access key and secret in GitHub repo secrets as above.
 
-### 4. Domain (optional — TBD)
+### 4. Domain: notarybyfelicia.com (Route 53)
 
-- **Domain name:** Placeholder until you decide (see `felicia-notary-business/MASTER-PLAN.md` for options).
-- When decided: register the domain (Route 53, Cloudflare, or Namecheap). Felicia pays ~$12–15/year.
-- Point the domain to the CloudFront distribution (A/ALIAS in Route 53, or CNAME at another registrar).
-- Request an ACM certificate in **us-east-1** for the domain; validate via DNS (CNAME). Add the domain and cert to the CloudFront distribution and turn on HTTPS redirect.
+- **Domain:** notarybyfelicia.com is registered on AWS Route 53.
+- **Full setup:** Follow **[DEPLOY-DOMAIN.md](DEPLOY-DOMAIN.md)** to create the S3 bucket, CloudFront distribution, ACM certificate, and Route 53 A/AAAA records so the site is served at **https://notarybyfelicia.com**.
 
 ## Calendly (free)
 
